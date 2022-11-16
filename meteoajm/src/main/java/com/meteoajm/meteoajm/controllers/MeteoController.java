@@ -40,7 +40,7 @@ public class MeteoController {
 	@DeleteMapping(value = "/station/{id}")
 	public String deleteMeteoStationById(@PathVariable ("id") Integer id){
 		meteoStationService.deleteMeteoStations(id);
-		return "Elemento borrado 333";
+		return "Elemento borrado 444";
 	}
 	
 	@DeleteMapping(value = "/stationsDeleteByName/{name}")
