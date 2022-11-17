@@ -1,7 +1,9 @@
 package com.meteoajm.meteoajm.services;
 
 import java.util.List;
+import java.util.Map;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.meteoajm.meteoajm.entities.MeteoStation;
@@ -20,5 +22,7 @@ public interface MeteoStationService {
 	public MeteoStation insertMeteoStations(String name, Double latitude, Double longitude);
 	
 	public MeteoStation updateMeteoStations(Integer id,String name, Double latitude, Double longitude);
+	
+	public MeteoStation updateTestMeteoStations(Integer id, MeteoStation body);
 	
 }
