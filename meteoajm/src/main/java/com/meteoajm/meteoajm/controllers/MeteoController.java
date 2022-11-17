@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -54,11 +55,34 @@ public class MeteoController {
 		
 		return meteoStationService.insertMeteoStations(name, latitude, longitude);
 	}
-	
+		
 	@PutMapping(value = "/stationUpdate")
 	public MeteoStation updateMeteoStations(@RequestParam("id") Integer id, @RequestParam("name") String name, @RequestParam("latitude") Double latitude, @RequestParam("longitude") Double longitude){
 		
 		return meteoStationService.updateMeteoStations(id, name, latitude, longitude);
 	}
+
+	@PutMapping(value = "/stationUpdate/{id}")
+	public MeteoStation updateTestMeteoStations(@PathVariable("id") Integer id, @RequestBody MeteoStation body) {
+		
+		System.out.println("Hola"+id);
+		MeteoStation testMi = meteoStationService.updateTestMeteoStations(id, body);
+		System.out.println("Que pasa"+id+"-----"+testMi.getName());
+		return meteoStationService.updateTestMeteoStations(id, body);
+	}
+	
+	@GetMapping("/testbody")
+	public MeteoStation test(@RequestBody MeteoStation body) {
+		
+		System.out.println("Ejemplo: "+body.getName());
+        return body;
+	}
+	@GetMapping("/stationMio")
+	public String test() {
+		
+		System.out.println("Fin");
+		return "Holaaaaa";
+	}
+	
 
 }

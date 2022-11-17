@@ -2,9 +2,11 @@ package com.meteoajm.meteoajm.services.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.meteoajm.meteoajm.entities.MeteoStation;
@@ -69,18 +71,33 @@ public class MeteoStationServiceImpl implements MeteoStationService {
 	@Override
 	public MeteoStation updateMeteoStations(Integer id,String name, Double latitude, Double longitude) {
 	
-		MeteoStation miMeteo =  new MeteoStation();
+		// Bien
+		MeteoStation miMeteo = meteoRepository.findById(id).get();
 		
-		miMeteo = meteoRepository.getById(id);
-				
+		// Mal	MeteoStation miMeteo = meteoRepository.getById(id);
+		
 		miMeteo.setName(name);
 		miMeteo.setLatitude(latitude);
 		miMeteo.setLongitude(longitude);
 		
 		meteoRepository.save(miMeteo);
 		
-		return null;
+		return miMeteo;
 		
+	}
+	// No lo uso por ahora
+	@Override
+	public MeteoStation updateTestMeteoStations(Integer id, MeteoStation body) {
+		
+		MeteoStation miMeteo = meteoRepository.findById(id).get();
+		
+		miMeteo.setName(body.getName());
+		miMeteo.setLatitude(body.getLatitude());
+		miMeteo.setLongitude(body.getLongitude());
+		
+		meteoRepository.save(miMeteo);
+		
+		return miMeteo;
 	}
 	
 }
