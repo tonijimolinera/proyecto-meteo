@@ -19,10 +19,14 @@ public interface MeteoStationService {
 	
 	public List<MeteoStation> deleteMeteoStations(String name);
 	
-	public MeteoStation insertMeteoStations(String name, Double latitude, Double longitude);
+	public MeteoStation insertMeteoStationByParam(String name, Double latitude, Double longitude);
+	
+	public MeteoStation insertMeteoStationByBody(MeteoStation body);
 	
 	public MeteoStation updateMeteoStations(Integer id,String name, Double latitude, Double longitude);
 	
 	public MeteoStation updateTestMeteoStations(Integer id, MeteoStation body);
+	
+	public MeteoStation updateTestMeteoStationsByMap(Map<String, String> body);
 	
 }

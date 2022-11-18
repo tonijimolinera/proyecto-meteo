@@ -55,7 +55,7 @@ public class MeteoStationServiceImpl implements MeteoStationService {
 	}
 
 	@Override
-	public MeteoStation insertMeteoStations(String name, Double latitude, Double longitude) {
+	public MeteoStation insertMeteoStationByParam(String name, Double latitude, Double longitude) {
 	
 		MeteoStation miNewMeteo = new MeteoStation();
 		
@@ -66,6 +66,20 @@ public class MeteoStationServiceImpl implements MeteoStationService {
 		meteoRepository.save(miNewMeteo);
 		
 		return miNewMeteo;
+	}
+	
+	@Override
+	public MeteoStation insertMeteoStationByBody(MeteoStation body) {
+		
+		MeteoStation miMeteo = new MeteoStation();
+		
+		miMeteo.setName(body.getName());
+		miMeteo.setLatitude(body.getLatitude());
+		miMeteo.setLongitude(body.getLongitude());
+		
+		meteoRepository.save(miMeteo);
+		
+		return miMeteo;
 	}
 	
 	@Override
@@ -98,6 +112,21 @@ public class MeteoStationServiceImpl implements MeteoStationService {
 		meteoRepository.save(miMeteo);
 		
 		return miMeteo;
+	}
+
+	@Override
+	public MeteoStation updateTestMeteoStationsByMap(Map<String, String> body) {
+		
+		
+		MeteoStation miMeteo = meteoRepository.findById(Integer.parseInt(body.get("id"))).get();
+		miMeteo.setName(body.get("name"));
+		miMeteo.setLatitude(Double.parseDouble(body.get("la")));
+		miMeteo.setLatitude(Double.parseDouble(body.get("lo")));;
+		
+		
+		meteoRepository.save(miMeteo);
+		return miMeteo;
+		
 	}
 	
 }
