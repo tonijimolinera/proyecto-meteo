@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.meteoajm.meteoajm.DTOs.MeteoStationDTO;
 import com.meteoajm.meteoajm.entities.MeteoStation;
 import com.meteoajm.meteoajm.services.MeteoStationService;
 
@@ -46,10 +47,16 @@ public class MeteoController {
 		return "Holaaaaa";
 	}
 
-	@GetMapping(path = "/stations", produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<MeteoStation> getMeteoStation(){
+	@GetMapping(path = "/stations")
+	public List<MeteoStationDTO> getMeteoStation(){
 
 		return meteoStationService.getMeteoStations();
+	}
+	
+	@GetMapping(path = "/stationsById")
+	public MeteoStationDTO getMeteoStationById(@RequestParam ("id") Integer id){
+
+		return meteoStationService.getMeteoStationById(id);
 	}
 
 	@GetMapping(path = "/stationsByName", produces = MediaType.APPLICATION_JSON_VALUE)
