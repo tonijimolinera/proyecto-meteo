@@ -92,9 +92,9 @@ public class MeteoController {
 	}
 
 	@PostMapping("/stationInsertByBody")
-	public MeteoStation insertMeteoStationByBody(@RequestBody MeteoStation body) {
-
-		return meteoStationService.insertMeteoStationByBody(body);
+	public ResponseEntity<MeteoStation> insertMeteoStationByBody(@RequestBody MeteoStation body) {
+		
+		return ResponseEntity.status(HttpStatus.CREATED).body(meteoStationService.insertMeteoStationByBody(body));
 	}
 
 

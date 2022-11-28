@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.meteoajm.meteoajm.DTOs.MeteoStationDTO;
 import com.meteoajm.meteoajm.entities.MeteoStation;
+import com.meteoajm.meteoajm.exceptions.BadRequestException;
 import com.meteoajm.meteoajm.mappers.MeteoStationMapper;
 import com.meteoajm.meteoajm.repositories.MeteoStationRepository;
 import com.meteoajm.meteoajm.services.MeteoStationService;
@@ -98,6 +99,11 @@ public class MeteoStationServiceImpl implements MeteoStationService {
 
 		MeteoStation miMeteo = new MeteoStation();
 
+		if (body.getName() == null || body.getName().isEmpty()) {
+			System.out.println("aaaaaaaaaaaaaaa");
+			throw new BadRequestException("Invalid Name");
+		}
+		
 		miMeteo.setName(body.getName());
 		miMeteo.setLatitude(body.getLatitude());
 		miMeteo.setLongitude(body.getLongitude());
