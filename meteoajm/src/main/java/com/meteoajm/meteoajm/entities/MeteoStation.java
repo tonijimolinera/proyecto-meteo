@@ -23,12 +23,12 @@ import lombok.Setter;
 public class MeteoStation {
 	
 	@Id
-	// @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="id")
 	private Integer id;
 	
 	@Column(name = "name")
-	@NotNull
+	@NotNull(message = "El name no puede ser NULL")
 	@Size(min = 2, message = "{validation.name.size.too_short}")
 	@Size(max = 255, message = "{validation.name.size.too_long}")
 	@Getter

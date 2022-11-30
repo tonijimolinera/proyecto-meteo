@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -94,14 +96,21 @@ public class MeteoStationServiceImpl implements MeteoStationService {
 	}
 
 	@Override
+	@Transactional
 	public MeteoStation insertMeteoStationByBody(MeteoStation body) {
 
 		MeteoStation miMeteo = new MeteoStation();
 
+		if(body.getLatitude() > 1800) {
+			throw new IllegalArgumentException("La latitudes es mayor de la permitido 18");
+		}
+		
+		// TODO Ver si ya existe una meteo station con ese nombre
+		
 		miMeteo.setName(body.getName());
 		miMeteo.setLatitude(body.getLatitude());
 		miMeteo.setLongitude(body.getLongitude());
-
+		miMeteo.setComments(body.getComments());
 		meteoRepository.save(miMeteo);
 
 		return miMeteo;
