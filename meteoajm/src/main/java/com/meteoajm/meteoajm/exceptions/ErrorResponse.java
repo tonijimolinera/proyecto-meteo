@@ -1,6 +1,5 @@
 package com.meteoajm.meteoajm.exceptions;
 
-import java.sql.Date;
 import java.util.List;
 
 import lombok.AllArgsConstructor;
@@ -16,7 +15,7 @@ public class ErrorResponse {
 
 	private int status;
 	private String message;
-	private Date timestamp;
+	private java.util.Date timestamp;
 	
 	List<String> errors;
 
@@ -42,12 +41,12 @@ public class ErrorResponse {
 		this.message = message;
 	}
 	
-	public Date getTimestamp() {
+	public java.util.Date getTimestamp() {
 		return timestamp;
 	}
 
 	public void setTimestamp(java.util.Date timestamp) {
-		this.timestamp = (Date) timestamp;
+		this.timestamp =  timestamp;
 	}
 
 	public List<String> getErrors() {
