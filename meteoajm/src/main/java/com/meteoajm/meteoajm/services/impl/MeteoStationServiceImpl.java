@@ -3,10 +3,15 @@ package com.meteoajm.meteoajm.services.impl;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
+import org.aspectj.lang.reflect.NoSuchAdviceException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
+import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
 import com.meteoajm.meteoajm.DTOs.MeteoStationDTO;
@@ -45,9 +50,12 @@ public class MeteoStationServiceImpl implements MeteoStationService {
 	@Override
 	public MeteoStationDTO getMeteoStationById(Integer id) {
 		
-		//  MeteoStationDTO meteoDTO = MeteoStationMapper.INSTANCIA.toMeteo(meteoRepository.getMeteoStationById(id));
-		return meteoMapper.toMeteo(meteoRepository.getMeteoStationById(id));
-		// return meteoDTO;
+		Optional<MeteoStation> opt = meteoRepository.findById(id);
+		if (opt.isEmpty()) {
+			throw new NoSuchElementException("No existe el usuario con id: " + id);
+		}
+		//return meteoMapper.toMeteo(meteoRepository.getMeteoStationById(id));
+		return meteoMapper.toMeteo(opt.get());
 	}
 	
 	@Override
@@ -99,21 +107,21 @@ public class MeteoStationServiceImpl implements MeteoStationService {
 	@Transactional
 	public MeteoStation insertMeteoStationByBody(MeteoStation body) {
 
-		MeteoStation miMeteo = new MeteoStation();
+		MeteoStation miMeteo = new MeteoStation(body.getName());
 
 		if(body.getLatitude() > 1800) {
 			throw new IllegalArgumentException("La latitudes es mayor de la permitido 18");
 		}
-		
-		// TODO Ver si ya existe una meteo station con ese nombre
-		
-		miMeteo.setName(body.getName());
+			
+		if (meteoRepository.exists(Example.of(miMeteo))) {
+			
+			throw new DuplicateKeyException("Ya existe el usuario con nombre: " + body.getName());
+		}
+		/*miMeteo.setName(body.getName());
 		miMeteo.setLatitude(body.getLatitude());
 		miMeteo.setLongitude(body.getLongitude());
-		miMeteo.setComments(body.getComments());
-		meteoRepository.save(miMeteo);
-
-		return miMeteo;
+		miMeteo.setComments(body.getComments());*/
+		return meteoRepository.save(body);
 	}
 
 	@Override

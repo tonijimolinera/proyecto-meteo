@@ -45,6 +45,13 @@ public class MeteoStation {
 	
 	@Column(name = "comments")
 	private String comments;
+	
+public MeteoStation() {	}
+	
+	public MeteoStation(String name) {
+		
+		this.name = name;
+	}
 
 	public String getComments() {
 		return comments;
