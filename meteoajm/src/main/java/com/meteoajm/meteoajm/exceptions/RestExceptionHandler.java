@@ -64,7 +64,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 	    ErrorResponse error = new ErrorResponse();
 	    error.setMessage("USRMSG-" + exc.getMessage());
 	    error.setStatus(httpStatus.value());
-	    // error.setTimestamp(new Date());
+	    error.setTimestamp(new Date());
 	    error.setErrors(errors);
 	    return new ResponseEntity<>(error, httpStatus);
 
