@@ -20,7 +20,6 @@ public interface MeteoStationMapper {
 	})
 	MeteoStationDTO toMeteo(MeteoStation meteo);
 	
-	
 	List<MeteoStationDTO> toMeteoList(List<MeteoStation>  meteoList);
 
 }

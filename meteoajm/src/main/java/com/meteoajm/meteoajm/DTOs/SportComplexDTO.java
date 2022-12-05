@@ -2,7 +2,7 @@ package com.meteoajm.meteoajm.DTOs;
 
 public class SportComplexDTO {
 
-	private String nameSportComplex;
+	private String nombre;
 	private String city;
 	private Integer postalCode;
 	private String description;
@@ -13,9 +13,9 @@ public class SportComplexDTO {
 	
 	
 	// Probar en intelliJ que esto es === @AllArgsConstructor
-	public SportComplexDTO(String nameSportComplex, String city, Integer postalCode, String description, byte assessment) {
+	public SportComplexDTO(String nombre, String city, Integer postalCode, String description, byte assessment) {
 		super();
-		this.nameSportComplex = nameSportComplex;
+		this.nombre = nombre;
 		this.city = city;
 		this.postalCode = postalCode;
 		this.description = description;
@@ -23,11 +23,11 @@ public class SportComplexDTO {
 	}
 	
 	// // Probar en intelliJ que esto es === @Data
-	public String getNameSportComplex() {
-		return nameSportComplex;
+	public String getNombre() {
+		return nombre;
 	}
-	public void setNameSportComplex(String nameSportComplex) {
-		this.nameSportComplex = nameSportComplex;
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 	public String getCity() {
 		return city;

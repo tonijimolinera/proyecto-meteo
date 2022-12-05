@@ -79,7 +79,6 @@ public class MeteoStationServiceImpl implements MeteoStationService {
 		List<MeteoStation> listMeteo = meteoRepository.findAll();
 		List<MeteoStation> listBorrado = new ArrayList<>();
 		for (MeteoStation miMeteo : listMeteo) {
-
 			if (miMeteo.getName().equals(name)) {
 
 				listBorrado.add(miMeteo);

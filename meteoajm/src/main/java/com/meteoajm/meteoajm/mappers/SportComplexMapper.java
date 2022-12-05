@@ -3,6 +3,7 @@ package com.meteoajm.meteoajm.mappers;
 import java.util.List;
 
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
 
 import com.meteoajm.meteoajm.DTOs.SportComplexDTO;
@@ -16,8 +17,9 @@ public interface SportComplexMapper {
 //	@Mapping(target = "postalCode", ignore = true)
 //	@Mapping(target = "assessment", ignore = true)
 //	@Mapping(target = "description", ignore = true)
+	@Mapping(source = "nameSportComplex", target="nombre")
 	SportComplexDTO toSportComplexDTO(SportComplexDAO sportComplexDAO);
 	
-	List<SportComplexDTO> toSportComplexDTOList(List<SportComplexDAO>  meteoList);
+	List<SportComplexDTO> toSportComplexDTOList(List<SportComplexDAO>  sportComplexDAOList);
 	
 }

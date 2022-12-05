@@ -1,6 +1,5 @@
 package com.meteoajm.meteoajm.services.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,15 +23,18 @@ public class SportComplexServiceImpl implements SportComplexService{
 	@Override
 	public List<SportComplexDTO> getSportComplex() {
 		
-		
-		List<SportComplexDTO> sportComplexDTOList = new ArrayList<SportComplexDTO>();
-		List<SportComplexDAO> sportComplexDAOList;
-		sportComplexDAOList = sportComplexRepository.findAll();
-		
-		for(SportComplexDAO bucle: sportComplexDAOList) {
-			sportComplexDTOList.add(sportComplexMapper.toSportComplexDTO(bucle));
-		}
-		return sportComplexDTOList;
+		List<SportComplexDAO> sportComplexDAOList = sportComplexRepository.findAll();
+		return sportComplexMapper.toSportComplexDTOList(sportComplexDAOList);
 	}
+
+	@Override
+	public List<SportComplexDTO> getSportComplexByName(String name) {
+		
+		List<SportComplexDAO> sportComplexDAOList = sportComplexRepository.getSportComplexDAOByNameSportComplex(name);
+		// return sportComplexRepository.getSportComplexDAOsByName(name);
+		return sportComplexMapper.toSportComplexDTOList(sportComplexDAOList);
+	}
+	
+	
 
 }
