@@ -4,10 +4,14 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,9 +20,12 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.meteoajm.meteoajm.DTOs.MeteoStationDTO;
 import com.meteoajm.meteoajm.entities.MeteoStation;
+import com.meteoajm.meteoajm.exceptions.InvalidDataException;
 import com.meteoajm.meteoajm.services.MeteoStationService;
 
 
@@ -46,10 +53,16 @@ public class MeteoController {
 		return "Holaaaaa";
 	}
 
-	@GetMapping(path = "/stations", produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<MeteoStation> getMeteoStation(){
+	@GetMapping(path = "/stations")
+	public List<MeteoStationDTO> getMeteoStation(){
 
 		return meteoStationService.getMeteoStations();
+	}
+	
+	@GetMapping(path = "/stationsById")
+	public MeteoStationDTO getMeteoStationById(@RequestParam ("id") Integer id){
+
+		return meteoStationService.getMeteoStationById(id);
 	}
 
 	@GetMapping(path = "/stationsByName", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -85,8 +98,13 @@ public class MeteoController {
 	}
 
 	@PostMapping("/stationInsertByBody")
-	public MeteoStation insertMeteoStationByBody(@RequestBody MeteoStation body) {
-
+	@ResponseStatus(HttpStatus.CREATED)
+	public MeteoStation insertMeteoStationByBody(@Valid @RequestBody MeteoStation body, BindingResult result) {
+		
+		if (result.hasErrors()) {
+			  throw new InvalidDataException(result);
+		}
+		// return ResponseEntity.status(HttpStatus.CREATED).body(meteoStationService.insertMeteoStationByBody(body));
 		return meteoStationService.insertMeteoStationByBody(body);
 	}
 

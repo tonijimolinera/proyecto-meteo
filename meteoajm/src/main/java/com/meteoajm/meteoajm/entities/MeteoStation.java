@@ -11,13 +11,15 @@ import javax.validation.constraints.Size;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "tbl_mast_meteo_stations")
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Data
 public class MeteoStation {
 	
 	@Id
@@ -26,9 +28,11 @@ public class MeteoStation {
 	private Integer id;
 	
 	@Column(name = "name")
-	@NotNull
+	@NotNull(message = "El name no puede ser NULL")
 	@Size(min = 2, message = "{validation.name.size.too_short}")
 	@Size(max = 255, message = "{validation.name.size.too_long}")
+	@Getter
+	@Setter
 	private String name;
 	
 	@Column(name = "longitude")
@@ -38,6 +42,24 @@ public class MeteoStation {
 	@Column(name = "latitude")
 	@NotNull
 	private Double latitude;
+	
+	@Column(name = "comments")
+	private String comments;
+	
+public MeteoStation() {	}
+	
+	public MeteoStation(String name) {
+		
+		this.name = name;
+	}
+
+	public String getComments() {
+		return comments;
+	}
+
+	public void setComments(String comments) {
+		this.comments = comments;
+	}
 
 	public String getName() {
 		return name;
