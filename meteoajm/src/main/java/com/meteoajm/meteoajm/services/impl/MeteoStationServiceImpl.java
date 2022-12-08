@@ -49,13 +49,15 @@ public class MeteoStationServiceImpl implements MeteoStationService {
 	
 	@Override
 	public MeteoStationDTO getMeteoStationById(Integer id) {
-		
+		/*
 		Optional<MeteoStation> opt = meteoRepository.findById(id);
 		if (opt.isEmpty()) {
 			throw new NoSuchElementException("No existe el usuario con id: " + id);
 		}
 		//return meteoMapper.toMeteo(meteoRepository.getMeteoStationById(id));
 		return meteoMapper.toMeteo(opt.get());
+		esto es un test*/
+		return null;
 	}
 	
 	@Override
